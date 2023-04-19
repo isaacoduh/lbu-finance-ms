@@ -2,10 +2,102 @@
     "tables": {
         "Accounts": {
             "tableName": "Accounts",
+            "schema": {
+                "id": {
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "studentId": {
+                    "field": "studentId",
+                    "seqType": "Sequelize.STRING"
+                },
+                "hasOutstandingBalance": {
+                    "field": "hasOutstandingBalance",
+                    "seqType": "Sequelize.BOOLEAN"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                }
+            },
             "indexes": []
         },
         "Invoices": {
             "tableName": "Invoices",
+            "schema": {
+                "id": {
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "reference": {
+                    "field": "reference",
+                    "seqType": "Sequelize.STRING"
+                },
+                "amount": {
+                    "allowNull": false,
+                    "field": "amount",
+                    "seqType": "Sequelize.FLOAT"
+                },
+                "dueDate": {
+                    "allowNull": false,
+                    "field": "dueDate",
+                    "seqType": "Sequelize.DATE"
+                },
+                "type": {
+                    "allowNull": false,
+                    "field": "type",
+                    "seqType": "Sequelize.ENUM('LIBRARY_FINE', 'TUITION_FEES')"
+                },
+                "status": {
+                    "allowNull": false,
+                    "field": "status",
+                    "seqType": "Sequelize.ENUM('OUTSTANDING', 'PAID', 'TYPE')"
+                },
+                "accountId": {
+                    "field": "accountId",
+                    "allowNull": true,
+                    "references": {
+                        "model": "Accounts",
+                        "key": "id"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.BIGINT"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "studentId": {
+                    "allowNull": true,
+                    "references": {
+                        "model": "Accounts",
+                        "key": "id"
+                    },
+                    "onDelete": "SET NULL",
+                    "onUpdate": "CASCADE",
+                    "field": "studentId",
+                    "seqType": "Sequelize.INTEGER"
+                }
+            },
             "indexes": []
         }
     },

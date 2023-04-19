@@ -18,6 +18,6 @@ const Account = sequelize.define('Account', {
 });
 
 // Define one-to-many relationship between Account and Invoice models
-Account.hasMany(require('./invoice.model'), { foreignKey: 'accountId', as: 'invoices' });
+// Account.hasMany(require('./invoice.model'), { foreignKey: 'accountId', as: 'invoices' });
 
 module.exports = Account;

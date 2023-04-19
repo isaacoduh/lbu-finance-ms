@@ -11,15 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Invoice.belongsTo(models.Account, { foreignKey: 'accountId' });
+      Invoice.belongsTo(models.Account, {
+        foreignKey: 'studentId',
+        as:'account'
+      });
     }
   }
   Invoice.init({
-    reference: {
-      type: DataTypes.STRING,
-      unique: true,
-      allowNull: false,
-    },
+    reference: DataTypes.STRING,
     amount: {
       type: DataTypes.FLOAT,
       allowNull: false,

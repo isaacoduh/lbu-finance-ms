@@ -11,18 +11,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Account.hasMany(models.Invoice, {foreignKey: 'accountId'});
+      Account.hasMany(models.Invoice,{
+        foreignKey:'accountId',
+        as:'invoices'
+      })
     }
   }
   Account.init({
-    studentId: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    hasOutstandingBalance: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-    },
+    studentId: DataTypes.STRING,
+    hasOutstandingBalance: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'Account',
