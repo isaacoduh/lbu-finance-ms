@@ -13,7 +13,7 @@ var Sequelize = require('sequelize');
 var info = {
     "revision": 1,
     "name": "noname",
-    "created": "2023-04-19T14:26:30.114Z",
+    "created": "2023-04-19T15:17:36.465Z",
     "comment": ""
 };
 
@@ -87,17 +87,6 @@ var migrationCommands = [{
                     "field": "status",
                     "allowNull": false
                 },
-                "accountId": {
-                    "type": Sequelize.BIGINT,
-                    "onUpdate": "CASCADE",
-                    "onDelete": "CASCADE",
-                    "references": {
-                        "model": "Accounts",
-                        "key": "id"
-                    },
-                    "allowNull": true,
-                    "field": "accountId"
-                },
                 "createdAt": {
                     "type": Sequelize.DATE,
                     "field": "createdAt",
@@ -108,9 +97,9 @@ var migrationCommands = [{
                     "field": "updatedAt",
                     "allowNull": false
                 },
-                "studentId": {
+                "acountId": {
                     "type": Sequelize.INTEGER,
-                    "field": "studentId",
+                    "field": "acountId",
                     "onUpdate": "CASCADE",
                     "onDelete": "SET NULL",
                     "references": {

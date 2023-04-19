@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Invoice.belongsTo(models.Account, {
-        foreignKey: 'studentId',
+        foreignKey: 'acountId',
         as:'account'
       });
     }

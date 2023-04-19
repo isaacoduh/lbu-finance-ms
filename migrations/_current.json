@@ -65,17 +65,6 @@
                     "field": "status",
                     "seqType": "Sequelize.ENUM('OUTSTANDING', 'PAID', 'TYPE')"
                 },
-                "accountId": {
-                    "field": "accountId",
-                    "allowNull": true,
-                    "references": {
-                        "model": "Accounts",
-                        "key": "id"
-                    },
-                    "onDelete": "CASCADE",
-                    "onUpdate": "CASCADE",
-                    "seqType": "Sequelize.BIGINT"
-                },
                 "createdAt": {
                     "allowNull": false,
                     "field": "createdAt",
@@ -86,7 +75,7 @@
                     "field": "updatedAt",
                     "seqType": "Sequelize.DATE"
                 },
-                "studentId": {
+                "acountId": {
                     "allowNull": true,
                     "references": {
                         "model": "Accounts",
@@ -94,7 +83,7 @@
                     },
                     "onDelete": "SET NULL",
                     "onUpdate": "CASCADE",
-                    "field": "studentId",
+                    "field": "acountId",
                     "seqType": "Sequelize.INTEGER"
                 }
             },
