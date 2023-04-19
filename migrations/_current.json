@@ -1,0 +1,13 @@
+{
+    "tables": {
+        "Accounts": {
+            "tableName": "Accounts",
+            "indexes": []
+        },
+        "Invoices": {
+            "tableName": "Invoices",
+            "indexes": []
+        }
+    },
+    "revision": 1
+}
