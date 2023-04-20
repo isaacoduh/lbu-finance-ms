@@ -1,2 +1,3 @@
 const account = require('./account');
-module.exports = {account}
+const invoice = require('./invoice');
+module.exports = {account,invoice}

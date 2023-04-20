@@ -6,14 +6,14 @@ var Sequelize = require('sequelize');
  * Actions summary:
  *
  * createTable "Accounts", deps: []
- * createTable "Invoices", deps: [Accounts, Accounts]
+ * createTable "Invoices", deps: [Accounts]
  *
  **/
 
 var info = {
     "revision": 1,
     "name": "noname",
-    "created": "2023-04-19T15:17:36.465Z",
+    "created": "2023-04-20T14:26:16.165Z",
     "comment": ""
 };
 
@@ -23,19 +23,22 @@ var migrationCommands = [{
             "Accounts",
             {
                 "id": {
-                    "type": Sequelize.INTEGER,
+                    "type": Sequelize.BIGINT,
                     "field": "id",
-                    "autoIncrement": true,
                     "primaryKey": true,
-                    "allowNull": false
+                    "unique": true,
+                    "autoIncrement": true
                 },
                 "studentId": {
                     "type": Sequelize.STRING,
-                    "field": "studentId"
+                    "field": "studentId",
+                    "allowNull": false
                 },
                 "hasOutstandingBalance": {
                     "type": Sequelize.BOOLEAN,
-                    "field": "hasOutstandingBalance"
+                    "field": "hasOutstandingBalance",
+                    "defaultValue": false,
+                    "allowNull": false
                 },
                 "createdAt": {
                     "type": Sequelize.DATE,
@@ -83,9 +86,21 @@ var migrationCommands = [{
                     "allowNull": false
                 },
                 "status": {
-                    "type": Sequelize.ENUM('OUTSTANDING', 'PAID', 'TYPE'),
+                    "type": Sequelize.ENUM('OUTSTANDING', 'PAID', 'CANCELLED'),
                     "field": "status",
                     "allowNull": false
+                },
+                "account_id": {
+                    "type": Sequelize.INTEGER,
+                    "onUpdate": "CASCADE",
+                    "onDelete": "cascade",
+                    "references": {
+                        "model": "Accounts",
+                        "key": "id"
+                    },
+                    "field": "account_id",
+                    "allowNull": false,
+                    "required": true
                 },
                 "createdAt": {
                     "type": Sequelize.DATE,
@@ -97,16 +112,9 @@ var migrationCommands = [{
                     "field": "updatedAt",
                     "allowNull": false
                 },
-                "acountId": {
-                    "type": Sequelize.INTEGER,
-                    "field": "acountId",
-                    "onUpdate": "CASCADE",
-                    "onDelete": "SET NULL",
-                    "references": {
-                        "model": "Accounts",
-                        "key": "id"
-                    },
-                    "allowNull": true
+                "deletedAt": {
+                    "type": Sequelize.DATE,
+                    "field": "deletedAt"
                 }
             },
             {}

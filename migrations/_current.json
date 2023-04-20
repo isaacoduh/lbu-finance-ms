@@ -4,17 +4,22 @@
             "tableName": "Accounts",
             "schema": {
                 "id": {
-                    "allowNull": false,
-                    "primaryKey": true,
                     "autoIncrement": true,
+                    "unique": true,
+                    "primaryKey": true,
                     "field": "id",
-                    "seqType": "Sequelize.INTEGER"
+                    "seqType": "Sequelize.BIGINT"
                 },
                 "studentId": {
+                    "allowNull": false,
                     "field": "studentId",
                     "seqType": "Sequelize.STRING"
                 },
                 "hasOutstandingBalance": {
+                    "allowNull": false,
+                    "defaultValue": {
+                        "value": false
+                    },
                     "field": "hasOutstandingBalance",
                     "seqType": "Sequelize.BOOLEAN"
                 },
@@ -63,7 +68,19 @@
                 "status": {
                     "allowNull": false,
                     "field": "status",
-                    "seqType": "Sequelize.ENUM('OUTSTANDING', 'PAID', 'TYPE')"
+                    "seqType": "Sequelize.ENUM('OUTSTANDING', 'PAID', 'CANCELLED')"
+                },
+                "account_id": {
+                    "required": true,
+                    "allowNull": false,
+                    "field": "account_id",
+                    "references": {
+                        "model": "Accounts",
+                        "key": "id"
+                    },
+                    "onDelete": "cascade",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER"
                 },
                 "createdAt": {
                     "allowNull": false,
@@ -75,16 +92,9 @@
                     "field": "updatedAt",
                     "seqType": "Sequelize.DATE"
                 },
-                "acountId": {
-                    "allowNull": true,
-                    "references": {
-                        "model": "Accounts",
-                        "key": "id"
-                    },
-                    "onDelete": "SET NULL",
-                    "onUpdate": "CASCADE",
-                    "field": "acountId",
-                    "seqType": "Sequelize.INTEGER"
+                "deletedAt": {
+                    "field": "deletedAt",
+                    "seqType": "Sequelize.DATE"
                 }
             },
             "indexes": []

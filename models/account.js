@@ -1,12 +1,31 @@
+const {Sequelize} = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   const Account = sequelize.define("Account",{
+    id: {
+      type: Sequelize.BIGINT,
+      autoIncrement: true,
+      unique: true,
+      primaryKey: true
+  },
     studentId: {
-      type: DataTypes.STRING,
+      type: Sequelize.STRING,
       allowNull: false
     },
-    hasOutstandingBalance: false
-  },{timestamps: true});
+    hasOutstandingBalance: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
+    }
+  },{paraniod: true});
+
+  Account.associate = function (models) {
+    Account.hasMany(models.Invoice, {
+      as: 'invoices',
+      onDelete:'cascade',
+      foreignKey:'account_id'
+    });
+  }
 
   return Account;
 }
