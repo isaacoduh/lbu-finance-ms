@@ -13,7 +13,7 @@ var Sequelize = require('sequelize');
 var info = {
     "revision": 1,
     "name": "noname",
-    "created": "2023-04-20T14:26:16.165Z",
+    "created": "2023-04-24T13:54:58.489Z",
     "comment": ""
 };
 
@@ -81,7 +81,7 @@ var migrationCommands = [{
                     "allowNull": false
                 },
                 "type": {
-                    "type": Sequelize.ENUM('LIBRARY_FINE', 'TUITION_FEES'),
+                    "type": Sequelize.ENUM('LIBRARY_FINE', 'TUITION_FEE'),
                     "field": "type",
                     "allowNull": false
                 },
