@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     type: {
       type: Sequelize.ENUM,
       allowNull: false,
-      values: ['LIBRARY_FINE', 'TUITION_FEES']
+      values: ['LIBRARY_FINE', 'TUITION_FEE']
     },
     status: {
       type: Sequelize.ENUM,

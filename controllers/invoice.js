@@ -25,9 +25,11 @@ const getInvoiceById = async (req, res) => {
 
 const createInvoice = async(req, res) => {
     try {
-        const {studentId, amount} = req.body;
+        // console.log(req.body);
+        const {reference, amount, type, status} = req.body;
+        const {studentId} = req.body.account;
         
-        // check if the studentId is valid or exists
+        // // check if the studentId is valid or exists
         const account = await Account.findOne({where: {studentId}});
 
         if (!account) {
@@ -36,13 +38,17 @@ const createInvoice = async(req, res) => {
 
         var date = new Date();
 
+        console.log(`.... account: ${account}`)
+        console.log(`type: ${type}`)
+
         const invoice = await Invoice.create({
-            reference: uuid(),
+            // reference: uuid(),
+            reference: reference,
             amount: amount,
             account_id: account.id,
             dueDate: date.setDate(date.getDate() + 7),
-            type: 'TUITION_FEES',
-            status: 'OUTSTANDING'
+            type: type,
+            status: status
         });
 
         if(invoice){

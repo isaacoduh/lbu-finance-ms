@@ -63,7 +63,7 @@
                 "type": {
                     "allowNull": false,
                     "field": "type",
-                    "seqType": "Sequelize.ENUM('LIBRARY_FINE', 'TUITION_FEES')"
+                    "seqType": "Sequelize.ENUM('LIBRARY_FINE', 'TUITION_FEE')"
                 },
                 "status": {
                     "allowNull": false,

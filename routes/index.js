@@ -25,6 +25,15 @@ router.get('/invoices/references/:reference',invoiceController.getInvoiceByRefer
 router.put('/invoices/:reference/pay', invoiceController.payInvoiceByReference);
 router.put('/invoices/:reference/cancel', invoiceController.cancelInvoiceByReference);
 
+router.post('/webhook/listen', (req, res) => {
+  const {id, studentId, hasOutstandingBalance} = req.body;
+  // console.log(`....Listening to webhook from student service: id - ${id}, studentId - ${studentId}, hasOutstandingBalance - ${hasOutstandingBalance}`);
+  return res.status(200).json({message: 'Data Recieved!', data: {
+    id, studentId, hasOutstandingBalance
+  }});
+})
+
+
 
 
 module.exports = router;

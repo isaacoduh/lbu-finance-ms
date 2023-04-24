@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const morgan = require('morgan');
 require('dotenv').config();
 
 
@@ -11,8 +12,15 @@ const app = express();
 const port = process.env.PORT || 3500;
 
 app.use(bodyParser.json());
+// app.use(morgan('dev'));
+morgan.token('body', req => {
+  return JSON.stringify(req.body);
+})
+app.use(morgan(':method :url :body'))
 
 app.use('/api/v1/',indexRouter);
+
+
 
 // app.get('/api/accounts', (req, res) => {
 //     accountController.getAccounts().then(data => {
