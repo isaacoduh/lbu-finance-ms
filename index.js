@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const cors = require('cors');
 require('dotenv').config();
 
 
@@ -9,6 +10,7 @@ const indexRouter = require('./routes/index');
 // const accountController = require('./controller/account.controller');
 
 const app = express();
+app.use(cors())
 const port = process.env.PORT || 3500;
 
 app.use(bodyParser.json());

@@ -1,6 +1,6 @@
 // const db = require('../models');
 // const Account = db.accounts;
-const {Account} = require('../models');
+const {Account, Invoice} = require('../models');
 
 const getAllAccounts = async (req, res) => {
     const accounts = await Account.findAll({});
@@ -36,12 +36,40 @@ const getAccountByStudentId = async (req, res) => {
     try {
         const {studentId} = req.params;
         const account = await Account.findOne({
-            where: {studentId: studentId}
+            where: {studentId: studentId},
+            include: { model: Invoice, as: 'invoices' }
         });
 
         if(account) {
             return res.status(201).send({status: true, message: "Data Retrieved", data: account});
         }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const checkGraduationStatus = async(req, res) => {
+    try {
+        const studentId = req.params.studentId;
+        const account = await Account.findOne({
+            where: {studentId: studentId},
+            include: { model: Invoice, as: 'invoices' }
+        });
+
+        // if(account) {
+        //     return res.status(201).send({status: true, message: "Data Retrieved", data: account});
+        // }
+
+        const hasOutstandingBalance = await Invoice.count({
+            where: {account_id: account.id, status: 'OUTSTANDING'}
+        });
+
+        // return res.json({ hasOutstandingBalance: invoiceCount === 0 ? false : true });
+        // return res.status(200).send({
+        //     hasOutstandingBalance: invoiceCount === 0 ? false : true
+        // });
+        return res.status(200).send( hasOutstandingBalance === 0 ? false : true)
+
     } catch (error) {
         console.log(error);
     }
@@ -116,7 +144,8 @@ module.exports = {
     getAccountByStudentId,
     getAccountById,
     updateAccountById,
-    deleteAccountById
+    deleteAccountById,
+    checkGraduationStatus
 }
 
 // const Account = require('../models/account');
