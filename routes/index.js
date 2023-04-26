@@ -18,6 +18,7 @@ router.get('/accounts/student/:studentId', accountController.getAccountByStudent
 router.put('/accounts/:id', accountController.updateAccountById);
 router.delete('/accounts/:id',accountController.deleteAccountById);
 
+
 router.get('/invoices', invoiceController.getAllInvoices);
 router.post('/invoices',invoiceController.createInvoice);
 router.get('/invoices/:id', invoiceController.getInvoiceById);
@@ -25,12 +26,13 @@ router.get('/invoices/references/:reference',invoiceController.getInvoiceByRefer
 router.put('/invoices/:reference/pay', invoiceController.payInvoiceByReference);
 router.put('/invoices/:reference/cancel', invoiceController.cancelInvoiceByReference);
 
+router.get('/check/:studentId/status', accountController.checkGraduationStatus);
+
 router.post('/webhook/listen', (req, res) => {
-  const {id, studentId, hasOutstandingBalance} = req.body;
+  // const {id, studentId, hasOutstandingBalance} = req.body;
+  const data = req.body;
   // console.log(`....Listening to webhook from student service: id - ${id}, studentId - ${studentId}, hasOutstandingBalance - ${hasOutstandingBalance}`);
-  return res.status(200).json({message: 'Data Recieved!', data: {
-    id, studentId, hasOutstandingBalance
-  }});
+  return res.status(200).json({message: 'Data Recieved!', data});
 })
 
 
