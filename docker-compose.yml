@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  finance_ms_api:
+    container_name: finance_ms_api
+    build: .
+    image: francescoxx/node_live_app
+    ports:
+      - "4200:4200"
+    environment:
+      - DB_NAME=finance_ms_dev_db
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+      - DB_HOST=finance_db
+    depends_on:
+      - finance_db
+  
+  finance_db:
+    container_name: finance_db
+    image: postgres:12
+    ports:
+      - "5434:5432"
+    environment:
+      - POSTGRES_DB=finance_ms_dev_db
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+    volumes:
+      - finance_db_data:/var/lib/postgresql/data
+
+volumes:
+  finance_db_data: {}
